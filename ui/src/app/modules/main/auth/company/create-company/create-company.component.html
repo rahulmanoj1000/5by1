@@ -46,6 +46,20 @@
        <mat-error *ngIf="form.controls['password'].hasError('required')">Please Enter Password</mat-error>
     </mat-form-field>
   </p>
+  <p>
+    <mat-form-field>
+      <mat-label>Branches</mat-label>
+      <input formControlName="branches" matInput placeholder="Number of Branches">
+      <mat-error *ngIf="form.controls['branches'].hasError('required')">Please enter number of branches required</mat-error>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <mat-label>Users</mat-label>
+      <input formControlName="users" matInput placeholder="Number of Users">
+      <mat-error *ngIf="form.controls['users'].hasError('required')">Please enter number of users required</mat-error>
+    </mat-form-field>
+  </p>
 
   
   <mat-error *ngIf="error">

@@ -16,7 +16,9 @@ export class CreateCompanyComponent implements OnInit {
   goToPreviousPage = _goToPreviousPage;
 
   loading = true;
+
   hide = true;
+
   formHeader = 'Create company';
 
   error: string;
@@ -34,6 +36,10 @@ export class CreateCompanyComponent implements OnInit {
     address: new FormControl('', [ Validators.required ]),
 
     password: new FormControl('', [ Validators.required ]),
+
+    branches: new FormControl('', [ Validators.required ]),
+
+    users: new FormControl('', [ Validators.required ]),
 
 
   });
@@ -59,6 +65,9 @@ export class CreateCompanyComponent implements OnInit {
           email: companyC.email ?? '',
           address: companyC.address ?? '',
           password: '',
+          branches: '',
+          users: '',
+
         });
 
         this.loading = false;
