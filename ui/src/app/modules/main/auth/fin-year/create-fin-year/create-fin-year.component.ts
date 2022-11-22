@@ -37,6 +37,12 @@ export class CreateFinYearComponent implements OnInit {
 
   finyearFiltered: Array<FinYear> = [];
 
+  minDate: Date;
+
+  maxDate: Date;
+
+  branch: Branch;
+
   form: FormGroup = new FormGroup({
 
     id: new FormControl(null),
@@ -96,6 +102,37 @@ export class CreateFinYearComponent implements OnInit {
 
   }
 
+
+  dateRangeSetter(branchDate:Date) {
+
+    const finDay = branchDate.getDate();
+    const finMonth = branchDate.getMonth();
+    const curDate = new Date();
+    const curDay = curDate.getDate();
+    const curMonth = curDate.getMonth();
+    let curYear = curDate.getFullYear();
+    if (finMonth > curMonth) {
+
+      curYear -= 1;
+
+    } else if (finMonth === curMonth) {
+
+      if (finDay > curDay) {
+
+        curYear -= 1;
+
+      }
+
+    }
+
+    const nextFinYearEnd = new Date(curYear + 2, finMonth, finDay - 1);
+    const prevFinYear = new Date(curYear - 1, finMonth, finDay);
+
+    this.minDate = prevFinYear;
+    this.maxDate = nextFinYearEnd;
+
+  }
+
   private initValueChanges = () => {
 
     this.form.controls.branch.valueChanges.subscribe((branchQ:unknown) => {
@@ -104,6 +141,7 @@ export class CreateFinYearComponent implements OnInit {
 
         const branch = branchQ as Branch;
         const fsDate = dayjs(branch.finYearStartDate);
+        this.dateRangeSetter(fsDate.toDate());
         this.rangeStrategy.startDate = {
           month: fsDate.month(),
           date: fsDate.date(),
