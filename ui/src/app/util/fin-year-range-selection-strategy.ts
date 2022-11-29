@@ -30,9 +30,14 @@ export class FinYearRangeSelectionStrategy<D> implements MatDateRangeSelectionSt
       if (date) {
 
         const month = this._dateAdapter.getMonth(date);
+        const day = this._dateAdapter.getDate(date);
         let startYear = this._dateAdapter.getYear(date);
         let endYear = startYear;
-        month < this.startDate.month ? startYear -= 1 : endYear += 1;
+        const arbYear = 1970;
+        const branchDate = new Date(arbYear, this.startDate.month, this.startDate.date);
+        const selectDate = new Date(arbYear, month, day);
+        selectDate < branchDate ? startYear -= 1 : endYear += 1;
+
         const start = this._dateAdapter.createDate(startYear, this.startDate.month, this.startDate.date);
         const end2 = this._dateAdapter.createDate(endYear, this.startDate.month, this.startDate.date);
         const end = this._dateAdapter.addCalendarDays(end2, -1);
